@@ -1,10 +1,11 @@
-import { GET_DATA, ERROR_FETCH, SET_LOADING } from '../constants/constants'
+import { GET_DATA, ERROR_FETCH, SET_LOADING, SEARCH_MOVIE } from '../constants/constants'
 
 const initialState = {
     isLoading: true,
     error: '',
     items: [],
-    lang: 'ru-RU',
+    lang: 'en-US',
+    page: 1,
 }
 
 export const mainReducer = (state = initialState, action) => {
@@ -16,7 +17,10 @@ export const mainReducer = (state = initialState, action) => {
       return {...state, isLoading: action.isLoading}
 
     case ERROR_FETCH:
-        return {...state, error: action.message}
+      return {...state, error: action.message}
+
+    case SEARCH_MOVIE:
+      return { ...state, items: action.data}
 
     default: 
         return state

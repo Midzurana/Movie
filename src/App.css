@@ -1,0 +1,49 @@
+.App-header {
+    background-color: #932222;
+    color: #CC9090;
+    height: 4rem;
+    text-align: center;
+}
+
+.App-title {
+    text-align: center;
+    padding: 10px;
+}
+
+.languages {
+    display: flex;
+    align-items: flex-end;
+
+}
+
+.list {
+    background-color: #EFEFEF;
+    padding: 3rem;
+}
+
+.movies-list {
+    background-color: #EFEFEF;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.movie {
+    margin: 0;
+    background-color: #EFEFEF;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    height: 500px;
+    width: 255px;
+    transition: 0.5s;
+}
+
+.movie:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 10px rgba(204, 87, 87, 0.51);
+}

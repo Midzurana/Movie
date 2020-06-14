@@ -1,31 +1,48 @@
-  import React, { Component } from 'react'
-  import { connect } from 'react-redux'
-  
-  export class Search extends Component {
+import React, { Component } from 'react'
+import _ from 'lodash';
 
-    findMovie() {
-        
-        this.props.onFindMovie(this.searchMovie.value)
+class Search extends Component {
+    constructor () {
+        super()
+
+        this.state =  {
+            value: ''
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.search = _.debounce((lang, value, page) => {
+            if (value.trim().length >= 2) {
+                return this.props.getDataBySearch(lang, value)
+            }
+            this.props.fetchData(page, lang)
+        }, 700);
     }
-    
+
+    handleChange(event) {
+        const {mainState: { lang, page }} = this.props;
+        const value = event.currentTarget.value;
+
+        this.setState({
+            value
+        })
+
+        this.search(lang, value, page)
+    }
+
     render() {
         return (
             <div>
-                {console.log(123, this.props)}
-                <input type='text' ref={(input) => { this.searchMovie = input }} onChange={this.findMovie.bind(this)} /> 
+                <input 
+                    type='text'
+                    placeholder='Search'
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                />
             </div>
         )
     }
-  }
-  
-  const mapStateToProps = state => ({
-      movies: state.movies.filter(movie => movie.name.includes(state.filterMovieReducer))
-  })
-  
-  const mapDispatchToProps = dispatch => {
-      return {
-        onFindTrack: name => dispatch({ type: 'FIND_MOVIE', payload: name})
-      }
-  }
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(Search)
+}
+
+
+export default Search;
+

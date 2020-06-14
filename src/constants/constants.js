@@ -2,3 +2,6 @@ export const API_KEY = 'f0e12567411c47f3551a9cc089007ef8';
 export const GET_DATA = 'GET_DATA';
 export const ERROR_FETCH = 'ERROR_FETCH';
 export const SET_LOADING = 'SET_LOADING';
+export const SEARCH_MOVIE = 'SEARCH_MOVIE';
+export const GET_DETAILED_MOVIE = 'GET_DETAILED_MOVIE';
+export const SET_MOVIE_LOADING = 'SET_MOVIE_LOADING';

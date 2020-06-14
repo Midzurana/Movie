@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import Item from './Items'
-import { Search } from './Search'
-import { setLanguage, fetchData } from '../actions/PageActions'
+import { Link } from 'react-router-dom'
 
-export class MainPage extends Component {
-    state = {
-        page: 3
-    }
+
+
+class MainPage extends Component {
 
     componentDidMount = () => {
-        const { lang } = this.props.mainState;
-        this.props.fetchData(this.state.page, lang);
+        const { lang, page } = this.props.mainState;
+        this.props.fetchData(page, lang);
     }
 
 
@@ -19,11 +16,16 @@ export class MainPage extends Component {
         const { items } = this.props.mainState
         const mainContent = items.map(item => {
             return (
-                <Item
-                    key={item.id}
-                    poster={item.poster_path}
-                    title={item.title}
-                />
+                <div className='movie'>
+                    <Link to={`film/${item.id}`}>
+                        <Item
+                            key={item.id}
+                            poster={item.poster_path}
+                            title={item.title}
+                            origin_country={item.origin_country}
+                        />
+                    </Link>
+                </div>
             )
         })
 
@@ -50,41 +52,12 @@ export class MainPage extends Component {
     
     render() {
         return (
-            <div>
-                <Search />
+            <>
                 {this.renderPage()}
-            </div>
+            </>
         )
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        mainState: state.main,
-        settings: state.settings,
-    }
-}
+export default MainPage
 
-const mapDispatchToProps = dispatch => {
-    return {
-        setLanguageAction: lang => dispatch(setLanguage(lang)),
-        fetchData: (page, lang) => dispatch(fetchData(page, lang))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage)
-
-
-// export class MainPage extends Component {
-//     render() {
-//             console.log(this.props)
-//             const { name, settings, items, setLanguageAction } = this.props;
-//         return (
-//             <div>
-//                 {name}, кажется, все не так плохо. 
-//                 <Items items={items.items} />
-//                 <Settings setLanguage={setLanguageAction} />
-//             </div>
-//         )
-//     }
-// }
